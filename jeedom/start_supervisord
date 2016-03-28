@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Create log folder. If it does not exist (can happen while using tmpfs) supervisord exits
+mkdir -p /var/log/supervisor
+
+# Nginx log foler
+mkdir -p /var/log/nginx
+
+/usr/bin/supervisord
+

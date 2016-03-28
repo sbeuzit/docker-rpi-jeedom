@@ -1,0 +1,31 @@
+# MySQL data container
+jeedom-data:
+    container_name: jeedom-data
+    image: sbeuzit/rpi-jeedom-data
+
+
+# MySQL container#
+jeedom-mysql:
+    container_name: jeedom-mysql
+    image: hypriot/rpi-mysql
+    restart: on-failure
+    environment:
+        - MYSQL_ROOT_PASSWORD=password
+    volumes_from:
+        - jeedom-data
+
+# Jeedom container
+jeedom:
+    container_name: jeedom
+    image: sbeuzit/rpi-jeedom-oz
+    restart: on-failure
+    ports:
+        - 80:80
+        - 8083:8083
+        - 443:443 
+    links:
+        - jeedom-mysql:mysql
+    mac_address: b8:27:eb:3c:08:33
+    devices:
+        - /dev/ttyACM0:/dev/ttyACM0
+
