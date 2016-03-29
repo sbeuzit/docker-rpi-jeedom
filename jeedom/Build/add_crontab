@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Wait a few seconds so crontab updqte will be taken into account
+sleep 5
+
+# Update crontab
+echo "* * * * * su --shell=/bin/bash - www-data -c '/usr/bin/php /var/www/html/core/php/jeeCron.php' >> /dev/null" | crontab -
+
+

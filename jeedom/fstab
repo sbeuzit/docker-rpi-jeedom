@@ -1,4 +1,0 @@
-tmpfs    /tmp        tmpfs      defaults,noatime,mode=1777,size=64m    0    0
-tmpfs    /var/log    tmpfs      defaults,noatime,mode=1777,size=5m    0    0
-tmpfs    /var/www/html/log	tmpfs	defaults,noatime,mode=1777,size=5m    0    0
-tmpfs    /var/tmp    tmpfs      defaults,noatime,mode=1777,size=1m    0    0
