@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Create log folder. If it does not exist (can happen while using tmpfs) supervisord exits
+mkdir -p /var/log/supervisor
+
+# Nginx log foler
+mkdir -p /var/log/nginx
+
+# www-data needs write access to this folder
+mkdir -p /var/www/html/log
+chmod a+w /var/www/html/log
+
+
+/usr/bin/supervisord
+
