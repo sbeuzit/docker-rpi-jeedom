@@ -22,7 +22,9 @@ Easiest way is to get either https://hub.docker.com/r/sbeuzit/rpi-jeedom-oz/dock
 
 Then go to http://<raspberry ip>/ and start the installation. MySQL hostname is jeedom-mysql and password is 'password' (can be changed in docker-compose.yml file).
 
-####Remark:
+####Remark 1:
+If no ZWave USB key is present (such as the UZB1) then remove the devices section from the docker-compose.yml filedevices section from the docker-compose.yml file.
+####Remark 2:
 To use tmpfs filesystem for log files and prevent SD card wearout, you can launch the jeedom container with specific parameter (will be added in docker-compose.yml once tmpfs will be supported - currently it is only available in 1.7 RC1 version):
 
 ```

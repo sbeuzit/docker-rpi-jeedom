@@ -8,7 +8,7 @@ jeedom-data:
 jeedom-mysql:
     container_name: jeedom-mysql
     image: hypriot/rpi-mysql
-    restart: on-failure
+    restart: always 
     environment:
         - MYSQL_ROOT_PASSWORD=password
     volumes_from:
@@ -18,7 +18,7 @@ jeedom-mysql:
 jeedom:
     container_name: jeedom
     image: sbeuzit/rpi-jeedom-oz
-    restart: on-failure
+    restart: always 
     ports:
         - 80:80
         - 8083:8083
