@@ -1,31 +1,50 @@
-# MySQL data container
-jeedom-data:
-    container_name: jeedom-data
-    image: sbeuzit/rpi-jeedom-data
+version: '2'
+services:
+  # MySQL data container
+  jeedom-data:
+      container_name: jeedom-data
+      image: sbeuzit/rpi-jeedom-data
 
 
-# MySQL container#
-jeedom-mysql:
-    container_name: jeedom-mysql
-    image: hypriot/rpi-mysql
-    restart: always 
-    environment:
-        - MYSQL_ROOT_PASSWORD=password
-    volumes_from:
-        - jeedom-data
+  # MySQL container#
+  jeedom-mysql:
+      container_name: jeedom-mysql
+      image: hypriot/rpi-mysql
+      restart: always 
+      environment:
+          - MYSQL_ROOT_PASSWORD=password
+      volumes_from:
+          - jeedom-data
 
-# Jeedom container
-jeedom:
-    container_name: jeedom
-    image: sbeuzit/rpi-jeedom
-    restart: always 
-    ports:
-        - 80:80
-        - 8083:8083
-        - 443:443 
-    links:
-        - jeedom-mysql:mysql
-    mac_address: b8:27:eb:3c:08:33
-    devices:
-        - /dev/ttyACM0:/dev/ttyACM0
+  # Jeedom container
+  jeedom:
+      container_name: jeedom
+      image: sbeuzit/rpi-jeedom
+      restart: always 
+  # OpenZWave: 8083
+  # ESPEasy: 8121
+  # Mosquito port (MQTT server): 1883
+      ports:
+          - 80:80
+          - 8083:8083
+          - 443:443 
+          - 8121:8121
+          - 1883:1883
+      links:
+          - jeedom-mysql:mysql
+      mac_address: b8:27:eb:3c:08:33
+      volumes:
+          - .:/host
+      devices:
+          - /dev/ttyACM0:/dev/ttyACM0
+          - /dev/ttyACM1:/dev/ttyACM1
+  # /dev/rflink and /dev/zwave to be defined through udev rules as soon as
+  # relative links supported by Docker
+  #         - /dev/rflink:/dev/rflink
+  #         - /dev/zwave:/dev/zwave
+  # Avoid writing on SDCard to often (supported from docker-compose 1.7.1)
+      tmpfs:
+          - /tmp:rw,size=32M
+          - /var/log:rw,size=32M
+          - /var/www/html/log:rw,size=32M
 
