@@ -24,4 +24,48 @@ Then go to http://<raspberry ip>/ and start the installation. MySQL hostname is 
 
 ####Remark 1:
 If no ZWave USB key (such as the UZB1) / RFLink module is present then remove the devices section from the docker-compose.yml file.
+
+###Remark 2:
+To move containers and data to a new Raspberry
+## Create a new Docker image from the running Jeedom container
+# Stop containers first
+```docker stop jeedom-mysql jeedom```
+# Create new image
+```docker commit jeedom```
+# Tag new image as old one 
+```docker images``` # To retrieve the'<image_id>
+```docker tag <image_id> sbeuzit/rpi-jeedom-oz```
+# Save the image in a file 
+```docker save sbeuzit/rpi-jeedom-oz > jeedom_oz_backup.tar.gz```
+
+## Save data from  jeedom-data container 
+docker run --rm --volumes-from jeedom-data -v $(pwd):/backup hypriot/rpi-busybox-httpd tar czvf /backup/data-backup.tar.gz /var/lib/mysql
+
+
+## Copy jeedom_oz_backup.tar.gz, data-backup.tar.gz and docker-compose.yml to the new host
+scp ...
+
+## Load the Docker image on the new host
+```docker load <jeedom_oz_backup.tar.gz```
+# Check if new image is available 
+```docker images```
+
+## Connect hardware on the new host (ZWave USB keys, RFLink...) 
+
+## Start Jeedom
+# Form the  docker-compose.yml folder
+```docker-compose up```
+# Restore data. Stop MySQL server first
+```docker-compose stop jeedom-mysql```
+# Restore data 
+```docker run --rm --volumes-from jeedom-data -v $(pwd):/backup hypriot/rpi-busybox-httpd tar xzvf /backup/data-backup.tar.gz -C /```
+# Verify if data are restored (a jeedom jeedom folder should have been created in /var/lib/mysql):
+```docker run --rm -t -i --volumes-from jeedom-data -v $(pwd):/backup hypriot/rpi-busybox-httpd sh```
+Then:
+```ls -l /var/lib/mysql/```
+```exit```
+
+# Restart MySQL server:
+```docker-compose start jeedom-mysql```
+
 ```
