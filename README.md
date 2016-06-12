@@ -58,23 +58,22 @@ To move containers and data to a new Raspberry
 
 * Start Jeedom
 
-. From the  docker-compose.yml folder
-```docker-compose up```
+	. From the  docker-compose.yml folder
+	```docker-compose up```
 
-. Restore data. Stop MySQL server first
-```docker-compose stop jeedom-mysql```
+	. Restore data. Stop MySQL server first
+	```docker-compose stop jeedom-mysql```
 
-. Restore data 
-```docker run --rm --volumes-from jeedom-data -v $(pwd):/backup hypriot/rpi-busybox-httpd tar xzvf /backup/data-backup.tar.gz -C /```
+	. Restore data 
+	```docker run --rm --volumes-from jeedom-data -v $(pwd):/backup hypriot/rpi-busybox-httpd tar xzvf /backup/data-backup.tar.gz -C /```
 
-. Verify if data are restored (a jeedom jeedom folder should have been created in /var/lib/mysql):
-```docker run --rm -t -i --volumes-from jeedom-data -v $(pwd):/backup hypriot/rpi-busybox-httpd sh```
+	. Verify if data are restored (a jeedom jeedom folder should have been created in /var/lib/mysql):
+	```docker run --rm -t -i --volumes-from jeedom-data -v $(pwd):/backup hypriot/rpi-busybox-httpd sh```
 
-Then:
-```ls -l /var/lib/mysql/```
-```exit```
+	Then:
+	```ls -l /var/lib/mysql/```
+	```exit```
 
 * Restart MySQL server:
 ```docker-compose start jeedom-mysql```
 
-```
