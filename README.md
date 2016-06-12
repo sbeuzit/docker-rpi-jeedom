@@ -29,18 +29,19 @@ If no ZWave USB key (such as the UZB1) / RFLink module is present then remove th
 To move containers and data to a new Raspberry
 * Create a new Docker image from the running Jeedom container and save it in a file
 
-. Stop containers first
-```docker stop jeedom-mysql jeedom```
+	. Stop containers first
+	```docker stop jeedom-mysql jeedom```
 
-. Create new image
-```docker commit jeedom```
+	. Create new image
+	```docker commit jeedom```
 
-. Tag new image as old one 
-```docker images``` # To retrieve the'<image_id>
-```docker tag <image_id> sbeuzit/rpi-jeedom-oz```
+	. Tag new image as old one 
+	```docker images``` # To retrieve the'<image_id>
 
-. Save the image in a file 
-```docker save sbeuzit/rpi-jeedom-oz > jeedom_oz_backup.tar.gz```
+	```docker tag <image_id> sbeuzit/rpi-jeedom-oz```
+
+	. Save the image in a file 
+	```docker save sbeuzit/rpi-jeedom-oz > jeedom_oz_backup.tar.gz```
 
 * Save data from  jeedom-data container 
 ```docker run --rm --volumes-from jeedom-data -v $(pwd):/backup hypriot/rpi-busybox-httpd tar czvf /backup/data-backup.tar.gz /var/lib/mysql```
@@ -72,6 +73,7 @@ To move containers and data to a new Raspberry
 
 	Then:
 	```ls -l /var/lib/mysql/```
+	
 	```exit```
 
 * Restart MySQL server:
