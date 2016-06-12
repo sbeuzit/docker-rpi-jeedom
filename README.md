@@ -72,9 +72,7 @@ To move containers and data to a new Raspberry
 	```docker run --rm -t -i --volumes-from jeedom-data -v $(pwd):/backup hypriot/rpi-busybox-httpd sh```
 
 	Then:
-	```ls -l /var/lib/mysql/```
-	
-	```exit```
+	```ls -l /var/lib/mysql/``` and ```exit``` to quit the container
 
 * Restart MySQL server:
 ```docker-compose start jeedom-mysql```
