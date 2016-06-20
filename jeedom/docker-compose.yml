@@ -44,7 +44,7 @@ services:
   #         - /dev/zwave:/dev/zwave
   # Avoid writing on SDCard to often (supported from docker-compose 1.7.1)
       tmpfs:
-          - /tmp:rw,size=32M
+          - /tmp:rw,size=64M
           - /var/log:rw,size=32M
           - /var/www/html/log:rw,size=32M
 
