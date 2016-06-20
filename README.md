@@ -36,7 +36,7 @@ To move containers and data to a new Raspberry
 	```docker commit jeedom```
 
 	. Tag new image as old one 
-	```docker images``` # To retrieve the'<image_id>
+	```docker images``` # To retrieve the <image_id>
 
 	```docker tag <image_id> sbeuzit/rpi-jeedom-oz```
 
