@@ -43,7 +43,7 @@ RUN mkdir -p /var/www/html && \
  cp -R /root/core-*/.htaccess /var/www/html/
 
 # For Openzwave
-ADD https://raw.githubusercontent.com/jeedom/plugin-openzwave/master/ressources/install.sh /root/openzwave_install.sh
+ADD https://raw.githubusercontent.com/jeedom/plugin-openzwave/master/resources/install.sh /root/openzwave_install.sh
 RUN chmod +x /root/openzwave_install.sh
 RUN /root/openzwave_install.sh
 RUN rm /root/openzwave_install.sh
