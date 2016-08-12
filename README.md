@@ -77,3 +77,8 @@ To move containers and data to a new Raspberry
 * Restart MySQL server:
 ```docker-compose start jeedom-mysql```
 
+###Remark 3:
+To launch a PHPMyAdmin container connected to Jeedom MySQL database:
+```docker run --net=pirate_default -d --restart=always -e PMA_USERNAME=root -e PMA_PASSWORD=<jeedom_db_password> --link jeedom-mysql:mysql --name phpmyadmin -p 8080:80 bkjeholt/phpmyadmin-rpi:latest```
+
+Then go to http://<JeedomIP>:8080
